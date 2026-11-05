@@ -5,7 +5,8 @@ A super simple FastAPI application that allows students to view and sign up for 
 ## Features
 
 - View all available extracurricular activities
-- Sign up for activities
+- Sign up for activities while capacity is available and registration is open
+- Enforce a two-activity limit per student and prevent schedule conflicts
 
 ## Getting Started
 
@@ -31,6 +32,13 @@ A super simple FastAPI application that allows students to view and sign up for 
 | ------ | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
 | GET    | `/activities`                                                     | Get all activities with their details and current participant count |
 | POST   | `/activities/{activity_name}/signup?email=student@mergington.edu` | Sign up for an activity                                             |
+
+Signup is validated by the API: it rejects full activities, duplicate
+enrollments, registration dates outside any configured registration window,
+more than two activities per student, and overlapping day/time schedules.
+Optional `registration_start` and `registration_end` activity values use
+`YYYY-MM-DD` dates. Schedule days and times are stored as `schedule_days`,
+`start_time`, and `end_time` alongside the display schedule.
 
 ## Data Model
 
